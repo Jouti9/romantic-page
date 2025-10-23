@@ -1,13 +1,30 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 
-// Make the No button run away on hover
-noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-});
+// Function to limit the button movement within the viewport with padding
+function moveNoBtn() {
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  let x = Math.random() * maxX;
+  let y = Math.random() * maxY;
+
+  // On small screens, keep the button fixed at bottom left
+  if (window.innerWidth <= 600) {
+    noBtn.style.left = "10px";
+    noBtn.style.bottom = "60px";
+    noBtn.style.top = "auto";
+    noBtn.style.position = "fixed";
+  } else {
+    noBtn.style.position = "absolute";
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+    noBtn.style.bottom = "auto";
+  }
+}
+
+noBtn.addEventListener("mouseover", moveNoBtn);
 
 // Create floating hearts when Yes is clicked
 yesBtn.addEventListener("click", () => {

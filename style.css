@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #ffd6e8, #ffb3c6);
   display: flex;
   flex-direction: column;
@@ -8,30 +8,34 @@ body {
   align-items: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
   color: #d63384;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 h1 {
-  font-size: 2em;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   text-align: center;
   margin-bottom: 10px;
 }
 
 p {
-  font-size: 1.2em;
+  font-size: clamp(1rem, 3vw, 1.3rem);
   margin-bottom: 30px;
   text-align: center;
+  max-width: 400px;
 }
 
 button {
-  font-size: 1.2em;
+  font-size: clamp(1rem, 3vw, 1.2rem);
   padding: 10px 25px;
   margin: 10px;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   transition: 0.3s;
+  position: relative; /* changed from absolute to relative for better layout */
 }
 
 #yesBtn {
@@ -52,10 +56,20 @@ button {
   transition: 0.2s;
 }
 
+/* Limit No button movement to viewport minus some padding */
+@media (max-width: 600px) {
+  #noBtn {
+    bottom: 60px !important;
+    left: 10px !important;
+    position: fixed !important;
+    top: auto !important;
+  }
+}
+
 .heart {
   position: absolute;
   color: #ff4d6d;
-  animation: floatUp 2s ease-in infinite;
+  animation: floatUp 2s ease-in forwards;
   font-size: 1.5em;
 }
 
@@ -73,10 +87,13 @@ button {
 /* Meme styling */
 .meme {
   position: absolute;
-  width: 200px;
+  width: 15vw;
+  max-width: 200px;
+  min-width: 120px;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s;
+  bottom: 30px;
 }
 
 .meme:hover {
@@ -85,10 +102,24 @@ button {
 
 #leftMeme {
   left: 30px;
-  bottom: 30px;
 }
 
 #rightMeme {
   right: 30px;
-  bottom: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .meme {
+    width: 120px !important;
+    bottom: 15px !important;
+  }
+
+  #leftMeme {
+    left: 15px !important;
+  }
+
+  #rightMeme {
+    right: 15px !important;
+  }
 }
